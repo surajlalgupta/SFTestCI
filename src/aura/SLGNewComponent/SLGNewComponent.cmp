@@ -1,0 +1,14 @@
+<aura:component implements="force:appHostable" controller="SLGController">
+    <aura:attribute type="Contact" name="con" default="{'sobjectType': 'Contact'}"/>
+    <force:inputField value="{!v.con.LastName}" aura:id="lastname"/><br/><br/>
+    <force:inputField value="{!v.con.Email}" aura:id="email"/><br/><br/>
+    <ui:button label="Create Contact" press="{!c.createCon}"/><br/><br/>
+    <force:outputField value="{!v.con.Id}" aura:id="id"/><br/><br/>
+    SEARCH CONTACT:
+    <aura:attribute name="conList" type="Contact[]"/>
+    <ui:inputText aura:id="lname"/><br/><br/>
+    <ui:button label="Fetch Contacts" press="{!c.fetchCons}"/><br/><br/>
+    <aura:iteration items="{!v.conList}" var="cont">
+        Last Name: {!cont.LastName}<br/><br/>
+    </aura:iteration>
+</aura:component>

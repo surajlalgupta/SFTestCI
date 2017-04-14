@@ -1,0 +1,17 @@
+<apex:page standardController="Account">
+    <apex:form >
+        <apex:pageBlock title="Account Test Details">
+            <apex:pageBlockSection columns="2" title="Test Details">
+                <apex:pageblockSectionItem >
+                    <apex:outputField value="{!Account.Name}"/> 
+                </apex:pageblockSectionItem>
+                <apex:pageblocksectionItem >
+                    <apex:outputField value="{!Account.Phone}"/>
+                </apex:pageblocksectionItem>
+                <apex:pageblockSectionItem >
+                    <apex:outputField value="{!Account.AccountNumber}"/>
+                </apex:pageblockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>    
+    </apex:form>
+</apex:page>

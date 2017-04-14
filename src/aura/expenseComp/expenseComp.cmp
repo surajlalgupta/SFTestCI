@@ -1,0 +1,20 @@
+<aura:component implements="force:appHostable" >
+    <aura:attribute name="Total" type="Double" default="0.00"/>
+    <aura:attribute name="Num" type="Integer" default="0"/>
+    <aura:attribute name="Expenses" type="Expense__c[]"/>
+    <aura:attribute name="NewExpense" type="Expense__c" default="{'sObjectType': 'Expense__c'}"/>
+    NEW EXPENSE: <br/><br/>
+    Expense Name: <br/>
+    <ui:inputText aura:id="expName" value="{!v.NewExpense.Name}" placeholder="Sample" required="true"/><br/>
+    Expense Amount: <br/>
+    <ui:inputNumber aura:id="amount" value="{!v.NewExpense.Amount__c}" placeholder="0.00" required="true"/><br/>
+    Client: <br/>
+    <ui:inputText aura:id="client" value="{!v.NewExpense.Client__c}" placeholder="ABC Co."/><br/>
+    Expense Date:<br/>
+    <ui:inputDateTime aura:id="expDate" value="{!v.NewExpense.Date__c}" displayDatePicker="true"/><br/>
+    Reimbursed? :
+    <ui:inputCheckbox aura:id="reimbursed" value="{!v.NewExpense.Reimbursed__c}"/><br/><br/>
+    <ui:button label="Submit" press="{!c.submitExpense}"/><br/><br/>
+    Total: <ui:outputNumber value="{!v.Total}" format="0.00"/><br/><br/>
+    No. of Expenses: <ui:outputNumber value="{!v.Num}"/><br/><br/>
+</aura:component>

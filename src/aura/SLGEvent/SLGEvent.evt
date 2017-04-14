@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Event Deployed through ant" >
+    <aura:attribute name="paramInt" type="Integer"></aura:attribute>
+    <aura:attribute name="paramText" type="String"></aura:attribute>
+</aura:event>

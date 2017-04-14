@@ -1,0 +1,12 @@
+<aura:component implements="force:appHostable">
+    <aura:attribute name="msg" default="Answer to life and universe" type="string"></aura:attribute>
+    <aura:attribute name="intgr" default="10" type="Integer"></aura:attribute>
+    <aura:registerEvent name="totalSumEvent" type="c:SLGEvent"/>
+    <ui:outputText value="{!v.msg}"/><br/><br/>
+    <ui:outputNumber value="{!v.intgr}"/><br/><br/>
+    <ui:inputNumber aura:id="one"/><br/><br/>
+    <ui:inputNumber aura:id="two"/><br/><br/>
+    <ui:inputNumber aura:id="three"/><br/><br/>
+    <ui:button press="{!c.calculate}" label="Calculate"/>
+    Total: <ui:outputNumber aura:id="total" value=""/><br/><br/>
+</aura:component>

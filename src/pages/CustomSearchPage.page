@@ -1,0 +1,20 @@
+<apex:page controller="CustomPageController" showHeader="false" sidebar="false" extensions="searchExtension">
+    <apex:form >
+        <apex:pageBlock title="Account Search Tool">
+            <apex:pageBlockSection title="Search Keyword">
+                <apex:panelGrid columns="2">
+                    <apex:inputText value="{!searchText}" label="Keyword" />
+                    <apex:commandButton action="{!fetchAccounts}" value="Search" />
+                </apex:panelGrid>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Search Results" columns="1">
+                <apex:pageBlockTable value="{!accounts}" var="acc">
+                    <apex:column value="{!acc.Name}" />
+                    <apex:column value="{!acc.Type}" />
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <apex:commandButton value="Has Enough?" action="{!testExt}" />
+            <apex:outputText label="Has Enough Accounts? " value="{!hasEnoughAccounts}"/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

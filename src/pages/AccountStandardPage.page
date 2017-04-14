@@ -1,0 +1,19 @@
+<apex:page standardController="Account" sidebar="false" showHeader="false" tabStyle="Account">
+    <apex:form >
+    <apex:pageBlock title="Account Detail">
+        <apex:pageBlockButtons >
+            <apex:commandButton action="{!quicksave}" value="Save" id="saveButton" />
+            <apex:commandButton action="{!cancel}" value="Cancel" id="cancelButton" />
+            <apex:commandButton action="{!edit}" value="Edit" id="editButton" />
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection title="Account Information">
+                <apex:outputField value="{!account.Name}">
+                    <apex:inlineEditSupport event="ondblclick " showOnEdit="saveButton, cancelButton" hideOnEdit="editButton" />
+                </apex:outputField>
+                <apex:outputField value="{!account.type}">
+                    <apex:inlineEditSupport event="ondblclick " showOnEdit="saveButton, cancelButton" hideOnEdit="editButton" />
+                </apex:outputField>    
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    </apex:form>    
+</apex:page>

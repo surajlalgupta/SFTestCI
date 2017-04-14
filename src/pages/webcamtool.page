@@ -1,0 +1,100 @@
+<apex:page showheader="false" sidebar="false" controller="CameraCaptureController"> 
+    <apex:sectionHeader title="Camera Capture" subtitle="Capture a snapshot" />
+    <apex:form >
+        <apex:inputHidden id="hiddenImage" value="{!capturedImage}" />
+        <input type="hidden" id = "hiddenInput" />
+        <script>
+            window.addEventListener("DOMContentLoaded", function() {
+                var video = document.getElementById("video");
+                var canvas = document.getElementById("canvas");
+                var context = canvas.getContext("2d");
+                console.log(video);
+                console.log(document.getElementById("{!$Component.hiddenImage}").value);
+                var vid = { "video": true };
+                errFunc = function(error) {
+                    console.log("Error while capturing video: ", error.code); 
+                };
+                if(navigator.getUserMedia) {
+                    navigator.getUserMedia(vid, function(stream) { 
+                        video.src = window.URL.createObjectURL(stream);
+                        video.play();    
+                    }, errFunc);
+                } else if(navigator.webkitGetUserMedia) {
+                    navigator.webkitGetUserMedia(vid, function(stream){
+                        video.src = window.URL.createObjectURL(stream);
+                        video.play();
+                    }, errFunc);
+                }
+                else if(navigator.mozGetUserMedia) {
+                    navigator.mozGetUserMedia(vid, function(stream){
+                        video.src = window.URL.createObjectURL(stream);
+                        video.play();
+                    }, errFunc);
+                }
+                
+                //resizeApp();
+                if (document.getElementById("{!$Component.hiddenImage}").value != ''){
+                    document.getElementById("image").setAttribute('src', document.getElementById("{!$Component.hiddenImage}").value);
+                }
+                //window.addEventListener("resize", resizeApp);
+            }, false);
+            resizeApp = function(){
+                var dimen = document.getElementById("{!$Component.block.section}").getBoundingClientRect();
+                document.getElementById("video").style.position = "absolute";
+                document.getElementById("image").style.position = "absolute";
+                //document.getElementById("{!$Component.block.section.item1.label}").style.position = "absolute";
+                //document.getElementById("{!$Component.block.section.item1.file}").style.position = "absolute";
+                document.getElementById("{!$Component.block.section.item2.link}").style.position = "absolute";
+                document.getElementById("video").style.left = ((dimen.width)*0.02).toString()+"px";
+                //document.getElementById("{!$Component.block.section.item1.label}").style.left = ((dimen.width)*0.03).toString()+"px";
+                //document.getElementById("{!$Component.block.section.item1.file}").style.left = ((dimen.width)*0.13).toString()+"px";
+                document.getElementById("{!$Component.block.section.item2.link}").style.left = ((dimen.width)*0.53).toString()+"px";
+                document.getElementById("image").style.left = ((dimen.width)*0.52).toString()+"px";
+                document.getElementById("video").style.width = ((dimen.width)*0.48).toString()+"px";
+                document.getElementById("image").style.width = ((dimen.width)*0.48).toString()+"px";
+                document.getElementById("{!$Component.block.section.item1.file}").style.width = ((dimen.width)*0.12).toString()+"px";
+                //document.getElementById("{!$Component.block.section.item2}").style.width = ((dimen.width)*0.47).toString()+"px";
+            };
+            SnapPicture = function(){
+                var canvas = document.getElementById("canvas");
+                var context = canvas.getContext("2d");
+                context.drawImage(video, 0, 0, 640, 480);
+                var capturedImages = convertCanvasToImage(canvas);
+                document.getElementById("{!$Component.hiddenImage}").value = capturedImages.src;
+                document.getElementById("image").setAttribute('src', document.getElementById("{!$Component.hiddenImage}").value);
+                //document.getElementById("canvas").style.z-index = 10;
+                capturedImages = null;
+            };
+            ClearPicture = function(){
+                document.getElementById("image").setAttribute('src', "{!$Resource.Image}");
+                document.getElementById("{!$Component.hiddenImage}").value = '';
+            };
+            convertCanvasToImage = function(canvas){
+                var image = new Image();
+                image.src = canvas.toDataURL("image/png");
+                console.log(image.src);
+                return image;
+            };
+        </script>
+        <apex:pageBlock id="block" tabStyle="Account">
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:pageBlockSection columns="2" id="section">
+                <apex:pageBlockSectionItem id="item1">
+                    <apex:outputLabel value="File Name" for="file" style="font-size: 14px;" id="label"/>
+                    <apex:inputText value="{!filename}" id="file" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="item2">
+                    <apex:outputLink value="/{!$CurrentPage.parameters.id}" style="text-decoration: none; font-size: 14px; color: #236FBD;" id="link"><b>Go Back To Detail Page</b></apex:outputLink>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><video id="video" style="border:1px solid lightgray;"></video></apex:pageBlockSectionItem>                
+                <apex:pageBlockSectionItem ><img src = "{!$Resource.Image}" id = "image" style="visibility: visible; border:1px solid lightgray;"></img></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ><canvas id="canvas" width="640" height = "480" style="border:1px solid lightgray; visibility: hidden;"></canvas></apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Snap" onclick="SnapPicture()" rerender="hidden"/>
+                <apex:commandButton value="Clear" onclick="ClearPicture()" rerender="hidden"/>
+                <apex:commandButton value="Save" action="{!Upload}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

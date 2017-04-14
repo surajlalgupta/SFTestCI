@@ -1,0 +1,11 @@
+<aura:component >
+    <aura:registerEvent name="addItem" type="c:addItemEvent"/>
+    <aura:attribute name="items" type="Camping_Item__c[]"/>
+    <aura:attribute name="newItem" type="Camping_Item__c" default="{'sobjectType': 'Camping_Item__c', 'Quantity__c': 0, 'Price__c': 0.00}"/>
+    <aura:handler action="{!c.doInit}" name="init" value="{!this}"/>
+	<ui:inputText value="{!v.newItem.Name}" aura:id="itemName" label="Name"/>
+    <ui:inputNumber value="{!v.newItem.Quantity__c}" aura:id="quant" label="Quantity"/>
+    <ui:inputCurrency value="{!v.newItem.Price__c}" aura:id="price" label="Price"/>
+    <ui:inputCheckbox value="{!v.newItem.Packed__c}" aura:id="isPacked" label="Packed?"/>
+    <ui:button label="Submit" press="{!c.submitForm}"/>
+</aura:component>

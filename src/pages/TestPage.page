@@ -1,0 +1,9 @@
+<apex:page controller="dataTableCon" id="thePage" renderAs="{!rendertype}"> 
+    <apex:form >
+        <apex:commandButton value="Save as PDF" action="{!saveAsPDF}" /><br/>
+    	<apex:repeat value="{!accounts}" var="acc">
+        	<apex:outputText value="{!acc.name}" />
+        	<apex:outputText value="{!acc.owner.name}" /><br/>
+    	</apex:repeat>
+    </apex:form>
+</apex:page>

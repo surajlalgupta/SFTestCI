@@ -1,0 +1,8 @@
+<aura:component implements="force:appHostable">
+    <aura:handler name="totalSumEvent" event="c:SLGEvent" action="{!c.assignVals}"/>
+    <aura:attribute type="Integer" name="IntegParam" />
+    <aura:attribute type="String" name="TextParam" />
+    <c:SLGComponent />
+    <ui:outputText value="{!v.TextParam}"/><br/><br/>
+    <ui:outputNumber value="{!v.IntegParam}"/><br/><br/>
+</aura:component>
