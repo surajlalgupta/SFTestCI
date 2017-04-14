@@ -17,7 +17,7 @@ public class AccountTriggerHandler{
         insert ct_list;
     }
     public void printAccounts(){
-        str = 'Test';
+        str = 'TestNew';
         system.debug((List<Account>)Trigger.New);
     }
     public class argumentList{
